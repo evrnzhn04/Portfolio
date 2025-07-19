@@ -108,4 +108,11 @@ pre {
     max-width: 100%; /* Ekle: görseller taşmasın */
     height: auto;
   }
+  #kod, .kod, pre code {
+    font-size: 12px; 
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
 }
