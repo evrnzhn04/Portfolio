@@ -96,10 +96,16 @@ pre {
 
   body {
     padding: 20px;
+    overflow-x: hidden;
   }
 
   section {
     margin: 0 auto 40px;
     padding: 15px;
+    max-width: 100%;    
+  }
+  img {
+    max-width: 100%; /* Ekle: görseller taşmasın */
+    height: auto;
   }
 }
