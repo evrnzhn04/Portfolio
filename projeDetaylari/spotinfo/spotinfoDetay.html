@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spotinfo</title>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+  <header>
+    <img src="spotinfoResimler/EnziSonsuzlukGiris.png" alt="Spotinfo Logo" width="150" height="150" />
+  </header>
+
+  <section id="aciklama">
+    <h3>Spotinfo</h3>
+    <p>
+      Bu proje, üniversitedeki uygulamalı bir ders kapsamında geliştirdiğim bir sosyal medya prototipidir. 
+      Spotify API kullanarak şarkı bilgilerini gerçek zamanlı çeker ve kullanıcıların bu şarkılar hakkında 
+      yorum yapmasını, beğenmesini ve sohbet etmesini sağlar. Amaç, hem müzik içerikleriyle etkileşim kurulan 
+      bir ortam oluşturmak hem de API kullanımı, arayüz tasarımı ve veri yönetimi gibi konularda pratik yapmaktı.
+      Geliştirme sürecinde hem frontend hem de backend alanlarında aktif rol aldım.
+    </p>
+  </section>
+
+  <div id="anaMenu">
+    <h3>🖥️ Ana Menü</h3>
+    <div id="anaMenuResim">
+      <img src="/projeDetaylari/spotinfo/spotinfoResimler/AnaMenu.png" alt="Ana Menu" width="915" />
+    </div>
+  </div>
+
+  <!-- Kod Bölümleri -->
+
+  <section id="kod">
+    <h4>🎧 HTTP İstemcisi ve API Çağrısı</h4>
+    <pre><code class="language-csharp">
+        using (var istemci = new HttpClient())
+        {   
+            // Bearer token ile Authorization ekliyoruz
+            istemci.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", erisimToken);
+
+
+            string url = $"https://api.spotify.com/v1/search?q=year:2000&type=track&limit=50";
+
+            ...
+        }
+    </code></pre>
+  </section>
+
+  <section id="kod">
+    <h4>📡 API'den Veri Çekme ve Parse Etme</h4>
+    <pre><code class="language-csharp">
+        ... 
+
+        string url = $"https://api.spotify.com/v1/search?q=year:2000&type=track&limit=50";
+
+        while (!string.IsNullOrEmpty(url))
+        {
+            var yanit = await istemci.GetAsync(url);
+        
+            if (yanit.IsSuccessStatusCode)
+            {
+                // Yanıtı alıyoruz
+                var json = await yanit.Content.ReadAsStringAsync();
+            
+                // Şarkı bilgilerini JSON'dan çekiyoruz
+                var parcalar = JObject.Parse(json)["tracks"]["items"];
+
+                ...
+            }
+
+            ...
+        }
+    </code></pre>
+  </section>
+
+  <section id="kod">
+    <h4>🎼 Şarkı Bilgilerini Ayıklama</h4>
+    <pre><code class="language-csharp">
+        foreach (var parca in parcalar)
+        {
+            // Şarkı bilgilerini alıyoruz
+            sarkiId = parca["id"].ToString();
+            string sarki = parca["name"].ToString();
+            string sanatci = parca["artists"][0]["name"].ToString();
+            string album = parca["album"]["name"].ToString();
+            string populerlik = parca["popularity"].ToString();
+            string sarkiID = parca["id"].ToString();
+            string sanatciId = parca["artists"][0]["id"].ToString();
+            string albumKapagiUrl = parca["album"]["images"][0]["url"].ToString();
+            string cikisTarihi = parca["album"]["release_date"].ToString();
+            string cikisYili = cikisTarihi.Split('-')[0];
+
+            ...
+        }
+        // Eğer sonraki sayfa varsa, 'next' URL'sini al
+        url = JObject.Parse(json)["tracks"]["next"]?.ToString();
+    </code></pre>
+  </section>
+
+  <section id="kod">
+    <h4>➡️ Hata Yönetimi</h4>
+    <pre><code class="language-csharp">
+        else
+        {
+            // Hata mesajı
+            MessageBox.Show("API Yanıtı: " + yanit.StatusCode.ToString());
+            MessageBox.Show("Şarkılar yüklenemedi.");
+            break;
+        }
+    </code></pre>
+  </section>
+</body>
+</html>
