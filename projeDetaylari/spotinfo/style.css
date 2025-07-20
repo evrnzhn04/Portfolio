@@ -1,66 +1,74 @@
+/* Genel Ayarlar */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 body {
-  background: linear-gradient(125deg, #3e3e3e, #2c3e50);
-  color: white;
+  background: linear-gradient(135deg, #1e1e2f, #2c3e50);
+  color: #f5f5f5;
   line-height: 1.6;
-  padding: 40px;
+  padding: 30px;
 }
 
-header{
+header {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
+/* Açıklama ve Ana İçerik Bölümleri */
 section {
-  max-width: 800px;
-  margin: 0 auto 60px;
-  padding: 20px;
-  background: #1e1e1e;
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
   border-radius: 12px;
-  box-shadow: 0px 20px 20px #303030;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
-section h3{
-  color: #2980b9;
+
+section h3,
+section h2,
+#anaMenu h3 {
+  color: #00e6e6;
   margin-bottom: 15px;
   font-size: 1.8rem;
-  border-bottom: 2px solid #2980b9;
+  border-bottom: 2px solid #00e6e6;
   padding-bottom: 5px;
 }
 
+/* Ana Menü */
 #anaMenu {
-  background: #1e1e1e;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
   color: #d4d4d4;
   padding: 20px;
-  border-radius: 8px;
-  overflow-x: auto;
-  font-family: Consolas, 'Courier New', monospace;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  box-sizing: border-box;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
   width: 1000px;
   max-width: 100%;
   margin: 20px auto;
+  box-sizing: border-box;
+  font-family: Consolas, 'Courier New', monospace;
 }
-#anaMenu h3 {
-  color: white;
-  font-size: 25px;
-  text-align: left;
-  margin-bottom: 10px;
-}
+
 #anaMenuResim {
   display: flex;
   justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
+
 #anaMenuResim img {
-  border-radius: 20px;
+  border-radius: 10px;
+  max-width: 100%;
+  height: auto;
 }
 
-
-pre {
+/* Kod Kutuları */
+pre, #kod {
   background: #1e1e1e;
   color: #d4d4d4;
   padding: 20px;
@@ -74,45 +82,42 @@ pre {
   margin: 20px auto;
 }
 
-#kod{
-  background: #1e1e1e;
-  color: #d4d4d4;
-  padding: 20px;
-  border-radius: 8px;
-  overflow-x: auto;
-  font-family: Consolas, 'Courier New', monospace;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  box-sizing: border-box;
-  width: 1000px;
-  max-width: 100%;
-  margin: 20px auto;
-}
-
+/* Mobil Uyum */
 @media (max-width: 768px) {
-  .kartlar {
-    flex-direction: column;
-    align-items: center;
-  }
-
   body {
     padding: 20px;
     overflow-x: hidden;
   }
 
   section {
-    margin: 0 auto 40px;
+    margin: 0 auto 30px;
     padding: 15px;
     max-width: 100%;    
   }
+
   img {
-    max-width: 100%; /* Ekle: görseller taşmasın */
+    max-width: 100%;
     height: auto;
   }
+
   #kod, .kod, pre code {
     font-size: 12px; 
     max-width: 100%;
     overflow-x: auto;
     white-space: pre-wrap;
     word-break: break-word;
+  }
+
+  #anaMenuResim {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  section h2, section h3 {
+    font-size: 1.5rem;
   }
 }
